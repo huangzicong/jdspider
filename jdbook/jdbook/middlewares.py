@@ -6,12 +6,33 @@
 # http://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
 from scrapy import signals
+from scrapy.downloadermiddlewares.useragent import UserAgentMiddleware
+import random
+from .settings import USER_AGENTS
+from selenium import webdriver
+import time
+from scrapy.http import HtmlResponse
+class RandomUserAgent(UserAgentMiddleware):
+    def process_request(self, request, spider):
+        useragent = random.choice(USER_AGENTS)
+        request.header["User-Agent"] = useragent
 
 
+class SeleniumMiddleWares(object):
+    def __init__(self):
+        self.driver = webdriver.PhantomJS()
+        self.driver.set_window_size(1920,1080)
+    def process_request(self,request):
+        self.driver.get(request.url)
+        self.driver.execute_script("window.scrollTo(0,document.body.scrollHeight);")
+        time.sleep(10)
+        return HtmlResponse(url=request.url,body=self.driver.page_source,encoding="utf-8",request=request)
 class JdbookSpiderMiddleware(object):
     # Not all methods need to be defined. If a method is not defined,
     # scrapy acts as if the spider middleware does not modify the
     # passed objects.
+
+
 
     @classmethod
     def from_crawler(cls, crawler):
