@@ -65,15 +65,16 @@ USER_AGENTS = [
 # See http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
 SPIDER_MIDDLEWARES = {
    'jdbook.middlewares.SeleniumMiddleWares': 543,
-    'jdbook.middlewares.RandomUserAgent': 560,
+
 
 }
 
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
-#    'jdbook.middlewares.MyCustomDownloaderMiddleware': 543,
-#}
+DOWNLOADER_MIDDLEWARES = {
+   'jdbook.middlewares.SeleniumMiddleWares': 543,
+    'jdbook.middlewares.RandomUserAgent': 560,
+}
 
 # Enable or disable extensions
 # See http://scrapy.readthedocs.org/en/latest/topics/extensions.html
@@ -85,7 +86,7 @@ SPIDER_MIDDLEWARES = {
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
    #'jdbook.pipelines.JdbookPipeline': 300,
-    'jdbook.pipelines.RedisPipline':403,
+    'jdbook.pipelines.RedisPipeline':403,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

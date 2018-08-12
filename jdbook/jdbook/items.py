@@ -11,8 +11,9 @@ import scrapy
 class JdbookItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
-    bookid = scrapy.Field()
+    id = scrapy.Field()
     name = scrapy.Field()
     num = scrapy.Field()
     price = scrapy.Field()
+    #author
 

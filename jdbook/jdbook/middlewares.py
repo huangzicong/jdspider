@@ -15,14 +15,14 @@ from scrapy.http import HtmlResponse
 class RandomUserAgent(UserAgentMiddleware):
     def process_request(self, request, spider):
         useragent = random.choice(USER_AGENTS)
-        request.header["User-Agent"] = useragent
+        request.headers["User-Agent"] = useragent
 
 
 class SeleniumMiddleWares(object):
     def __init__(self):
         self.driver = webdriver.PhantomJS()
         self.driver.set_window_size(1920,1080)
-    def process_request(self,request):
+    def process_request(self,request,spider):
         self.driver.get(request.url)
         self.driver.execute_script("window.scrollTo(0,document.body.scrollHeight);")
         time.sleep(10)
